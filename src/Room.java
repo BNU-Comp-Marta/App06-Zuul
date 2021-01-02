@@ -19,7 +19,9 @@ import java.util.Iterator;
 public class Room 
 {
     private String description;
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    // String is the key to a room in that direction
+    // east would be an exit that goes to the Room
+    private HashMap<String, Room> exits;
 
     /**
      * Create a room described "description". Initially, it has
