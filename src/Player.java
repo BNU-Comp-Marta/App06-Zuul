@@ -23,6 +23,11 @@ public class Player
     public void print()
     {
         System.out.println("Player : " + name);
-        System.out.println();
+
+        System.out.println(health);
     }
+    int health = 100;
+    int AttackDamage = 35;
+
+    boolean running= true;
 }

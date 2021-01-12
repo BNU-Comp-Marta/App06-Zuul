@@ -27,9 +27,62 @@ public class Game
      */
     public Game() 
     {
-        parser = new Parser();
         createRooms();
+        parser = new Parser();
         play();
+    }
+
+    /**
+     * Create all the rooms and link their exits together.
+     */
+    private void createRooms()
+    {
+        Room Cave, Crypt, Dark_Forest, Village, Dragon_keep, Valley_of_souls, Castle, Castle_interior, Castle_f1,  Castle_f2, Castle_f3, end;
+      
+        // create the rooms
+        Cave = new Room("In a cold, dark cave and you can year the revolting sounds of the undead coming from the east. You can see a strange path with a light in the west ");
+        Crypt = new Room(" in a dimly lit corridor as you see strange markings on the wall and bones scattered around the floor and the smell of rot is sickening");
+        Dark_Forest = new Room("in the huntsman's forest where and are cold to the bone and afraid of whats to come, in the west you see an odd light...");
+        Valley_of_souls = new Room("in the most sorrowful lands of the living");
+        Dragon_keep = new Room("listening to a loud breathing noise as you enter and see the burnt corpse of a soldier with his sword still in hand...and the low warning growl of a dragon");
+        Village = new Room("in a surprising safe haven from all the suffering you find a cosy little settlement, with peace and tranquility, indeed a rare sight");
+        Castle = new Room("outside the tallest structure you have ever seen, with crumbling brick, moss everywhere and a large door");
+        Castle_interior = new Room("terrified ad the door slams shut behind you and you find yourself trapped in this ancient castle with no means of escape, you find the only way is forward now");
+        Castle_f1 = new Room("standing in the castle's 1st floor, you hear whispers and realise you are doomed with no way out");
+        Castle_f2 = new Room("on The second floor of the castle evokes different feelings as you know in your heart you are close to something");
+        Castle_f3 = new Room("at the final floor of the castle and the end of you journey, or is it, get ready for the final face off!");
+        end = new Room("Congratulations, you have reached the end of the game");
+        // initialise room exits
+        Cave.setExit("east", Crypt);
+        Crypt.setExit("south", Dark_Forest);
+        Village.setExit("west", Castle);
+
+        Cave.setExit("west", Dragon_keep);
+
+        Dragon_keep.setExit("east", Cave);
+
+        Dragon_keep.setExit("north", Village);
+
+        Crypt.setExit("north", Valley_of_souls);
+
+        Valley_of_souls.setExit("south", Crypt);
+
+        Dark_Forest.setExit("north", Crypt);
+        Dark_Forest.setExit("west", Village);
+        Village.setExit("east", Dark_Forest);
+        Castle.setExit("east", Village);
+        Castle.setExit("north", Castle_interior);
+
+        Castle_interior.setExit("north", Castle_f1);
+        Castle_f1.setExit("north", Castle_f2);
+
+        Castle_f2.setExit("north", Castle_f3);
+
+        Castle_f3.setExit("boss-fight",end);
+
+        Crypt.setExit("west", Cave);
+
+        currentRoom = Cave;  // start game in cave
     }
 
     /**
@@ -50,38 +103,7 @@ public class Game
             finished = processCommand(command);
         }
         
-        System.out.println("Thank you for playing.  Good bye.");
-    }
-
-    /**
-     * Create all the rooms and link their exits together.
-     */
-    private void createRooms()
-    {
-        Room outside, theater, pub, lab, office;
-
-        // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-
-        // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
-
-        theater.setExit("west", outside);
-
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;  // start game outside
+        System.out.println("Thank you for playing.  see you later...");
     }
 
     /**
@@ -90,8 +112,8 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Welcome to the dark and twisted World of Zuul!");
+        System.out.println("This land is a new, incredibly dark text based game, good luck, you will need it!");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -111,7 +133,7 @@ public class Game
         switch (commandWord) 
         {
             case UNKNOWN:
-                System.out.println("I don't know what you mean...");
+                System.out.println("invalid command, tip add go before you type a direction e.g go west...");
                 break;
 
             case HELP:
@@ -164,7 +186,7 @@ public class Game
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("you are blocked by a wall!");
         }
         else {
             currentRoom = nextRoom;
