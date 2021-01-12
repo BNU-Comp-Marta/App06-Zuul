@@ -29,5 +29,27 @@ public class Player
     int health = 100;
     int AttackDamage = 35;
 
-    boolean running= true;
+    public class Item {
+
+        private String note;
+        private String itemId;
+        private int quantity;
+        private String description;
+
+        public Item(String note, String itemId) {
+            this.note=note;
+            this.itemId=itemId;
+            this.quantity=1;
+        }
+
+
+        public void add() {
+            this.quantity++;
+        }
+        }
+
+
+        public String getName() {
+            return this.name;
+        }
 }

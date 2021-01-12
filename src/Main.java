@@ -14,12 +14,8 @@ public class Main
     public static void main(String[] args)
     {
         zuul = new Game();
-        //system variables
-        Scanner in = new Scanner(System.in);
-        Random rand = new Random();
-
         //game variables
-        String[] enemies ={"Skeleton", "Zombie", "Wraith","wolf", "Goblin", "Bandit", "knight", "ancient knight","dragon","gargoyle","Steel king of smite" };
+        String[] enemies ={"Steel king of smite"};
         int maxEnemyHealth= 50;
         int EnemyAttackDamage= 20;
     }

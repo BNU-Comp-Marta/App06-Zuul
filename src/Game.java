@@ -40,17 +40,17 @@ public class Game
         Room Cave, Crypt, Dark_Forest, Village, Dragon_keep, Valley_of_souls, Castle, Castle_interior, Castle_f1,  Castle_f2, Castle_f3, end;
       
         // create the rooms
-        Cave = new Room("In a cold, dark cave and you can year the revolting sounds of the undead coming from the east. You can see a strange path with a light in the west ");
+        Cave = new Room("In a cold, dark cave and you can hear the revolting sounds of the undead coming from the east. You can see a strange path with a light in the west ");
         Crypt = new Room(" in a dimly lit corridor as you see strange markings on the wall and bones scattered around the floor and the smell of rot is sickening");
         Dark_Forest = new Room("in the huntsman's forest where and are cold to the bone and afraid of whats to come, in the west you see an odd light...");
         Valley_of_souls = new Room("in the most sorrowful lands of the living");
         Dragon_keep = new Room("listening to a loud breathing noise as you enter and see the burnt corpse of a soldier with his sword still in hand...and the low warning growl of a dragon");
-        Village = new Room("in a surprising safe haven from all the suffering you find a cosy little settlement, with peace and tranquility, indeed a rare sight");
+        Village = new Room("in a surprising safe haven from all the suffering you find a cosy little settlement, with peace and tranquility, indeed a rare sight. You find a note on the floor");
         Castle = new Room("outside the tallest structure you have ever seen, with crumbling brick, moss everywhere and a large door");
         Castle_interior = new Room("terrified ad the door slams shut behind you and you find yourself trapped in this ancient castle with no means of escape, you find the only way is forward now");
         Castle_f1 = new Room("standing in the castle's 1st floor, you hear whispers and realise you are doomed with no way out");
         Castle_f2 = new Room("on The second floor of the castle evokes different feelings as you know in your heart you are close to something");
-        Castle_f3 = new Room("at the final floor of the castle and the end of you journey, or is it, get ready for the final face off!");
+        Castle_f3 = new Room("at the final floor of the castle and the end of your journey, or is it, get ready for the final face off!");
         end = new Room("Congratulations, you have reached the end of the game");
         // initialise room exits
         Cave.setExit("east", Crypt);
