@@ -19,7 +19,7 @@ public class Main
         Random rand = new Random();
 
         //game variables
-        String[] enemies ={"wolf", "Skeleton", "Zombie", "Wraith", "knight", "ancient knight","dragon","gargoyle","Steel king of smite" };
+        String[] enemies ={"Skeleton", "Zombie", "Wraith","wolf", "Goblin", "Bandit", "knight", "ancient knight","dragon","gargoyle","Steel king of smite" };
         int maxEnemyHealth= 50;
         int EnemyAttackDamage= 20;
     }
