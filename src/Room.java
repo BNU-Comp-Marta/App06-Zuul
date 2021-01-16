@@ -1,7 +1,5 @@
-import java.util.Set;
 import java.util.HashMap;
-import java.util.Iterator;
-
+import java.util.Set;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -42,6 +40,7 @@ public class Room
     {
         exits.put(direction, neighbor);
     }
+
 
     /**
      * @return The short description of the room

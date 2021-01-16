@@ -17,16 +17,15 @@
  * Modified and extended by Derek and Andrei
  */
 
-public class Game 
-{
+public class Game {
     private Parser parser;
     private Room currentRoom;
-        
+    private Object Item;
+
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() 
-    {
+    public Game() {
         createRooms();
         parser = new Parser();
         play();
@@ -35,10 +34,9 @@ public class Game
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
-    {
-        Room Cave, Crypt, Dark_Forest, Village, Dragon_keep, Valley_of_souls, Castle, Castle_interior, Castle_f1,  Castle_f2, Castle_f3, end;
-      
+    private void createRooms() {
+        Room Cave, Crypt, Dark_Forest, Village, Dragon_keep, Valley_of_souls, Castle, Castle_interior, Castle_f1, Castle_f2, Castle_f3, end;
+
         // create the rooms
         Cave = new Room("In a cold, dark cave and you can hear the revolting sounds of the undead coming from the east. You can see a strange path with a light in the west ");
         Crypt = new Room(" in a dimly lit corridor as you see strange markings on the wall and bones scattered around the floor and the smell of rot is sickening");
@@ -78,13 +76,21 @@ public class Game
 
         Castle_f2.setExit("north", Castle_f3);
 
-        Castle_f3.setExit("boss-fight",end);
+        Castle_f3.setExit("boss-fight", end);
 
         Crypt.setExit("west", Cave);
 
         currentRoom = Cave;  // start game in cave
     }
+    public class time {
+        private static final int TIME_LIMIT = 12;
+        private int time;
+    }
 
+    public boolean inTime()
+    {
+
+    }
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -144,12 +150,26 @@ public class Game
                 goRoom(command);
                 break;
 
+            case Pickup:
+                pickup(command);
+                break;
+
+
             case QUIT:
                 wantToQuit = quit(command);
                 break;
         }
         return wantToQuit;
     }
+
+    private String pickup(Command command)
+    {
+        if (currentRoom == currentRoom) {
+        return "you must go to the castle and seek the darkness within..";
+        } else {
+        } return "There is no such item";
+    }
+
 
     // implementations of user commands:
 
@@ -161,7 +181,7 @@ public class Game
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("alone in the world");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
@@ -171,13 +191,18 @@ public class Game
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
      */
-    private void goRoom(Command command) 
+    private void goRoom(Command command)
     {
-        if(!command.hasSecondWord()) 
+        
+        if(!command.hasSecondWord())
+
         {
             // if there is no second word, we don't know where to go...
             System.out.println("Go where?");
             return;
+        }
+        {
+
         }
 
         String direction = command.getSecondWord();
@@ -193,6 +218,8 @@ public class Game
             System.out.println(currentRoom.getLongDescription());
         }
     }
+
+
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
