@@ -37,12 +37,6 @@ public class Player
         private int quantity;
         private String description;
 
-        public Item(String note, String itemId) {
-            this.note=note;
-            this.itemId=itemId;
-            this.quantity=1;
-        }
-
 
         public void add() {
             this.quantity++;

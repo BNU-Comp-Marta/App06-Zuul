@@ -11,7 +11,7 @@ public class Main {
         zuul = new Game();
         //game variables
         String[] enemies = {"Steel king of smite"};
-        int maxEnemyHealth = 50;
+        int maxEnemyHealth = 100;
         int EnemyAttackDamage = 20;
     }
 }

@@ -10,11 +10,12 @@ public class Item {
     public String getDescription() {
         return description;
     }
-
-    public String getlongdescription() {
-        return "It says" + description;
+    public void Detail(String detail) {
+        description = detail;
     }
+
 }
+
 
 
 

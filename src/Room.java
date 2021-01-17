@@ -99,18 +99,20 @@ public class Room {
     public Item getItem(int index) {
         return items.get(index);
     }
+
     public Item getItem(String itemName) {
         for (int i = 0; i < items.size(); i++) {
-            if(items.get(i).getDescription().equals(itemName)){
+            if (items.get(i).getDescription().equals(itemName)) {
                 return items.get(i);
             }
 
         }
         return null;
     }
+
     public void removeItem(String itemName) {
         for (int i = 0; i < items.size(); i++) {
-            if(items.get(i).getDescription().equals(itemName)){
+            if (items.get(i).getDescription().equals(itemName)) {
                 items.remove(i);
             }
 
@@ -118,17 +120,16 @@ public class Room {
     }
 
 
-
-
-
-
     public void setItem(Item newitem) {
         items.add(newitem);
 
     }
 
+    public void setDetail(Item setDetail) {
+        items.add(setDetail);
+    }
+
     /**
-     *
      * get description of items in a room
      */
 

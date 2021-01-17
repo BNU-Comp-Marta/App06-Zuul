@@ -83,11 +83,15 @@ public class Game {
 
         currentRoom = Cave;  // start game in cave
         //items to be interacted with
-        Inventory.add(new Item("torch: a warm light glows"));
-        Village.setItem(new Item("note: go to the castle but beware of the darkness"));
-        Castle_interior.setItem(new Item("Ancient Sword: Thousands of years old but still strong"));
-        Castle_f2.setItem(new Item("Old armour set: armour of a fallen king"));
+        Inventory.add(new Item("torch"));
+        Village.setItem(new Item("note"));
+        Castle_interior.setItem(new Item("Ancient Sword"));
+        Castle_f2.setItem(new Item("Old armour set"));
 
+
+        Village.setDetail(new Item(":You must go to the castle, but beware of the darkness within"));
+        Castle_interior.setDetail(new Item(":You find an old rusty sword but an odd energy permeates through this weapon"));
+        Castle_f2.setDetail(new Item(":old armour which once was worn by the true king"));
     }
 
     public class time {
@@ -183,7 +187,7 @@ public class Game {
 
         String item = command.getSecondWord();
 
-        // Try to leave current room.
+        //stores item in inventory
         Item newItem = null;
         int index =0;
         for (int i = 0; i < Inventory.size(); i++) {
@@ -191,7 +195,7 @@ public class Game {
                 newItem = Inventory.get(i);
                 index = i;
             }
-            
+
         }
         if (newItem == null) {
             System.out.println("You do not have that item in your inventory");
@@ -200,6 +204,7 @@ public class Game {
             currentRoom.setItem(new Item(item));
             System.out.println("dropped:" + item);
         }
+
 
     }
 
