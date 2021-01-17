@@ -83,6 +83,7 @@ public class Game {
 
         currentRoom = Cave;  // start game in cave
         Inventory.add(new Item("torch"));
+        Village.setItem(new Item("note"));
     }
 
     public class time {
@@ -151,6 +152,9 @@ public class Game {
             case Inventory:
                 printInventory();
                 break;
+            case get:
+                getItem(command);
+                break;
 
             case QUIT:
                 wantToQuit = quit(command);
@@ -168,6 +172,31 @@ public class Game {
         System.out.println("You are carrying");
         System.out.println(output);
         }
+    private void getItem(Command command) {
+
+        if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Get what?");
+            return;
+        }
+        {
+
+        }
+
+        String item = command.getSecondWord();
+
+        // Try to leave current room.
+        Item newItem = currentRoom.getItem(item);
+
+        if (newItem == null) {
+            System.out.println("There is no such item");
+        } else {
+            Inventory.add(newItem);
+            currentRoom.removeItem(item);
+            System.out.println("Received:" + item);
+        }
+    }
+
 
     // implementations of user commands:
 
