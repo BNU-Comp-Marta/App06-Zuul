@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -20,7 +21,7 @@
 public class Game {
     private Parser parser;
     private Room currentRoom;
-    private Object Item;
+    ArrayList<Item> Inventory = new ArrayList<Item>();
 
     /**
      * Create the game and initialise its internal map.
@@ -81,16 +82,14 @@ public class Game {
         Crypt.setExit("west", Cave);
 
         currentRoom = Cave;  // start game in cave
+        Inventory.add(new Item("torch"));
     }
+
     public class time {
         private static final int TIME_LIMIT = 12;
         private int time;
-    }
 
-    public boolean inTime()
-    {
-
-    }
+}
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -139,7 +138,7 @@ public class Game {
         switch (commandWord) 
         {
             case UNKNOWN:
-                System.out.println("invalid command, tip add go before you type a direction e.g go west...");
+                System.out.println("invalid command, tip add go before you type a direction e.g go west... or a capital letter for Inventory");
                 break;
 
             case HELP:
@@ -149,11 +148,9 @@ public class Game {
             case GO:
                 goRoom(command);
                 break;
-
-            case Pickup:
-                pickup(command);
+            case Inventory:
+                printInventory();
                 break;
-
 
             case QUIT:
                 wantToQuit = quit(command);
@@ -162,14 +159,15 @@ public class Game {
         return wantToQuit;
     }
 
-    private String pickup(Command command)
-    {
-        if (currentRoom == currentRoom) {
-        return "you must go to the castle and seek the darkness within..";
-        } else {
-        } return "There is no such item";
-    }
-
+    private void printInventory() {
+        String output ="";
+        for (int i = 0; i < Inventory.size(); i++) {
+            output += Inventory.get(i).getDescription() + " ";
+            
+        }
+        System.out.println("You are carrying");
+        System.out.println(output);
+        }
 
     // implementations of user commands:
 
