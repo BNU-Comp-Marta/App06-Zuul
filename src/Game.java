@@ -155,12 +155,49 @@ public class Game {
             case get:
                 getItem(command);
                 break;
+            case drop:
+                dropItem(command);
+                break;
 
             case QUIT:
                 wantToQuit = quit(command);
                 break;
         }
         return wantToQuit;
+    }
+
+    private void dropItem(Command command) {
+        if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to drop..
+            System.out.println("drop what?");
+            return;
+        }
+        {
+
+
+        }
+
+        String item = command.getSecondWord();
+
+        // Try to leave current room.
+        Item newItem = null;
+        int index =0;
+        for (int i = 0; i < Inventory.size(); i++) {
+            if(Inventory.get(i).getDescription().equals(item)){
+                newItem = Inventory.get(i);
+                index = i;
+            }
+            
+        }
+
+        if (newItem == null) {
+            System.out.println("You do not have that item in your inventory");
+        } else {
+            Inventory.remove(index);
+            currentRoom.removeItem(item);
+            System.out.println("dropped:" + item);
+        }
+
     }
 
     private void printInventory() {
@@ -172,6 +209,7 @@ public class Game {
         System.out.println("You are carrying");
         System.out.println(output);
         }
+
     private void getItem(Command command) {
 
         if (!command.hasSecondWord()) {
@@ -180,6 +218,7 @@ public class Game {
             return;
         }
         {
+
 
         }
 
@@ -195,7 +234,8 @@ public class Game {
             currentRoom.removeItem(item);
             System.out.println("Received:" + item);
         }
-    }
+
+        }
 
 
     // implementations of user commands:
@@ -224,7 +264,7 @@ public class Game {
         if(!command.hasSecondWord())
 
         {
-            // if there is no second word, we don't know where to go...
+            // if there is no second word, we don't know what to get.
             System.out.println("Go where?");
             return;
         }
