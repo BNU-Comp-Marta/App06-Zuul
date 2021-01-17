@@ -194,7 +194,7 @@ public class Game {
             System.out.println("You do not have that item in your inventory");
         } else {
             Inventory.remove(index);
-            currentRoom.removeItem(item);
+            currentRoom.setItem(new Item(item));
             System.out.println("dropped:" + item);
         }
 
