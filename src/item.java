@@ -10,10 +10,15 @@ public class Item {
     public String getDescription() {
         return description;
     }
+
     public void Detail(String detail) {
         description = detail;
     }
 
+
+    public void UseItem(Command UseItem) {
+
+    }
 }
 
 

@@ -42,14 +42,14 @@ public class Game {
         Cave = new Room("In a cold, dark cave and you can hear the revolting sounds of the undead coming from the east. In your hand you hold a torch which lights the way. You can see a strange path with a light in the west ");
         Crypt = new Room(" in a dimly lit corridor as you see strange markings on the wall and bones scattered around the floor and the smell of rot is sickening");
         Dark_Forest = new Room("in the huntsman's forest where and are cold to the bone and afraid of whats to come, in the west you see an odd light...");
-        Valley_of_souls = new Room("in the most sorrowful lands of the living");
+        Valley_of_souls = new Room("you can hear the souls of the lost nearby");
         Dragon_keep = new Room("listening to a loud breathing noise as you enter and see the burnt corpse of a soldier with his sword still in hand...and the low warning growl of a dragon");
         Village = new Room("in a surprising safe haven from all the suffering you find a cosy little settlement, with peace and tranquility, indeed a rare sight. You find a note on the floor");
         Castle = new Room("outside the tallest structure you have ever seen, with crumbling brick, moss everywhere and a large door");
         Castle_interior = new Room("terrified ad the door slams shut behind you and you find yourself trapped in this ancient castle with no means of escape, you find the only way is forward now, but there is an ancient sword glistening in the distance");
         Castle_f1 = new Room("standing in the castle's 1st floor, you hear whispers and realise you are doomed with no way out");
         Castle_f2 = new Room("on The second floor of the castle evokes different feelings as you know in your heart you are close to something");
-        Castle_f3 = new Room("at the final floor of the castle and the end of your journey, or is it, get ready for the final face off!");
+        Castle_f3 = new Room("at the final floor of the castle and the end of your journey, or is it.");
         end = new Room("Congratulations, you have reached the end of the game");
         // initialise room exits
         Cave.setExit("east", Crypt);
@@ -77,7 +77,7 @@ public class Game {
 
         Castle_f2.setExit("north", Castle_f3);
 
-        Castle_f3.setExit("boss-fight", end);
+        Castle_f3.setExit("end", end);
 
         Crypt.setExit("west", Cave);
 
@@ -85,46 +85,49 @@ public class Game {
         //items to be interacted with
         Inventory.add(new Item("torch"));
         Village.setItem(new Item("note"));
+        Valley_of_souls.setItem(new Item("Soul crystal"));
         Castle_interior.setItem(new Item("Ancient Sword"));
+        Castle_f1.setItem(new Item("old key"));
         Castle_f2.setItem(new Item("Old armour set"));
 
 
-        Village.setDetail(new Item(":You must go to the castle, but beware of the darkness within"));
-        Castle_interior.setDetail(new Item(":You find an old rusty sword but an odd energy permeates through this weapon"));
-        Castle_f2.setDetail(new Item(":old armour which once was worn by the true king"));
+        Village.useItem(new Item(":You must go to the castle, but beware of the darkness within"));
+        Valley_of_souls.useItem(new Item(" an odd crystal, with a faint sound echoing within"));
+        Castle_interior.useItem(new Item("an old rusty sword but an odd energy permeates through this weapon"));
+        Castle_f1.useItem(new Item("forgotten old key to unlock answers or more questions..."));
+        Castle_f2.useItem(new Item("old armour which once was worn by the true king"));
+        
     }
 
     public class time {
         private static final int TIME_LIMIT = 12;
         private int time;
 
-}
+    }
+
     /**
-     *  Main play routine.  Loops until end of play.
+     * Main play routine.  Loops until end of play.
      */
-    public void play() 
-    {            
+    public void play() {
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
-        
-        while (! finished) 
-        {
+
+        while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        
+
         System.out.println("Thank you for playing.  see you later...");
     }
 
     /**
      * Print out the opening message for the player.
      */
-    private void printWelcome()
-    {
+    private void printWelcome() {
         System.out.println();
         System.out.println("Welcome to the dark and twisted World of Zuul!");
         System.out.println("This land is a new, incredibly dark text based game, good luck, you will need it!");
@@ -135,17 +138,16 @@ public class Game {
 
     /**
      * Given a command, process (that is: execute) the command.
+     *
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private boolean processCommand(Command command) 
-    {
+    private boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
 
-        switch (commandWord) 
-        {
+        switch (commandWord) {
             case UNKNOWN:
                 System.out.println("invalid command, tip add go before you type a direction e.g go west... or a capital letter for Inventory");
                 break;
@@ -155,7 +157,7 @@ public class Game {
                 break;
 
             case GO:
-                goRoom(command);
+               wantToQuit = goRoom(command);
                 break;
             case Inventory:
                 printInventory();
@@ -163,8 +165,8 @@ public class Game {
             case get:
                 getItem(command);
                 break;
-            case drop:
-                dropItem(command);
+            case use:
+                UseItem(command);
                 break;
 
             case QUIT:
@@ -173,6 +175,10 @@ public class Game {
         }
         return wantToQuit;
     }
+
+    private void UseItem(Command command) {
+    }
+
 
     private void dropItem(Command command) {
         if (!command.hasSecondWord()) {
@@ -189,9 +195,9 @@ public class Game {
 
         //stores item in inventory
         Item newItem = null;
-        int index =0;
+        int index = 0;
         for (int i = 0; i < Inventory.size(); i++) {
-            if(Inventory.get(i).getDescription().equals(item)){
+            if (Inventory.get(i).getDescription().equals(item)) {
                 newItem = Inventory.get(i);
                 index = i;
             }
@@ -243,18 +249,17 @@ public class Game {
             System.out.println("Received:" + item);
         }
 
-        }
+    }
 
 
     // implementations of user commands:
 
     /**
      * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the 
+     * Here we print some stupid, cryptic message and a list of the
      * command words.
      */
-    private void printHelp() 
-    {
+    private void printHelp() {
         System.out.println("You are lost. You are alone. You wander");
         System.out.println("alone in the world");
         System.out.println();
@@ -262,19 +267,17 @@ public class Game {
         parser.showCommands();
     }
 
-    /** 
+    /**
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
      */
-    private void goRoom(Command command)
-    {
-        
-        if(!command.hasSecondWord())
+    private boolean goRoom(Command command) {
 
-        {
+        if (!command.hasSecondWord()) {
             // if there is no second word, we don't know what to get.
             System.out.println("Go where?");
-            return;
+            return false;
+
         }
         {
 
@@ -287,12 +290,19 @@ public class Game {
 
         if (nextRoom == null) {
             System.out.println("you are blocked by a wall!");
-        }
-        else {
+        } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            if (currentRoom == new Room("end")) {
+                System.out.println(" saved, congratulations, you have escaped the world of Zuul and won!");
+                return true;
+            }
         }
+        return false;
     }
+
+
+
 
 
 

@@ -125,9 +125,10 @@ public class Room {
 
     }
 
-    public void setDetail(Item setDetail) {
-        items.add(setDetail);
+    public void useItem(Item useItem) {
+        items.add(useItem);
     }
+
 
     /**
      * get description of items in a room
