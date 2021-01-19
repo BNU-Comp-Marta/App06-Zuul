@@ -145,7 +145,7 @@ public class Game {
      * @return true If the command ends the game, false otherwise.
      */
     private boolean processCommand(Command command) {
-        boolean wantToQuit = false;
+        boolean Wanttoquit = false;
         boolean updateTimer = true;
 
 
@@ -163,7 +163,7 @@ public class Game {
                 break;
 
             case GO:
-                wantToQuit = goRoom(command);
+                Wanttoquit = goRoom(command);
                 break;
 
             case Inventory:
@@ -187,28 +187,24 @@ public class Game {
                 break;
 
                 case QUIT:
-                wantToQuit = quit(command);
+                    Wanttoquit  = quit(command);
                 updateTimer = false;
                 break;
         }
-        {
             if (updateTimer) {
                 timer.updateTimer();
                 if (timer.hasExpired())
                     System.out.println("Your time has run out! - you have failed and let the darkness destroy you");
-                wantToQuit = false;
+                Wanttoquit = false;
             } else if (timer.isLow()) {
                 System.out.println("Hurry, time is running low and the darkness approaches");
-                System.out.println("You have " + timer + "moves left!");
+                System.out.println("You have " + timer + " moves left!");
             }
+            return Wanttoquit;
         }
-        return wantToQuit;
-    }
 
 
-    {
 
-        }
 
 
 
