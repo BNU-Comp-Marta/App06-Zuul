@@ -76,7 +76,7 @@ public class Room {
 
         for (String exit : keys) {
             returnString += " " + exit;
-            returnString += "\nItems in the room\n";
+            returnString += "\nItems:\n";
             returnString += getRoomItems();
         }
         return returnString;

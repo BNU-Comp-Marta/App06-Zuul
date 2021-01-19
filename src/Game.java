@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class Game {
     private Parser parser;
     private Room currentRoom;
+    private Timer timer;
     ArrayList<Item> Inventory = new ArrayList<Item>();
 
     /**
@@ -29,6 +30,7 @@ public class Game {
     public Game() {
         createRooms();
         parser = new Parser();
+        timer = new Timer(15, -1, 5);
         play();
     }
 
@@ -83,12 +85,12 @@ public class Game {
 
         currentRoom = Cave;  // start game in cave
         //items to be interacted with
-        Inventory.add(new Item("torch"));
-        Village.setItem(new Item("note"));
-        Valley_of_souls.setItem(new Item("Soul crystal"));
-        Castle_interior.setItem(new Item("Ancient Sword"));
-        Castle_f1.setItem(new Item("old key"));
-        Castle_f2.setItem(new Item("Old armour set"));
+        Inventory.add(new Item("Torch"));
+        Village.setItem(new Item("Note"));
+        Valley_of_souls.setItem(new Item("Crystal"));
+        Castle_interior.setItem(new Item("Sword"));
+        Castle_f1.setItem(new Item("Key"));
+        Castle_f2.setItem(new Item("Armour"));
 
 
         Village.useItem(new Item(":You must go to the castle, but beware of the darkness within"));
@@ -96,14 +98,9 @@ public class Game {
         Castle_interior.useItem(new Item("an old rusty sword but an odd energy permeates through this weapon"));
         Castle_f1.useItem(new Item("forgotten old key to unlock answers or more questions..."));
         Castle_f2.useItem(new Item("old armour which once was worn by the true king"));
-        
-    }
-
-    public class time {
-        private static final int TIME_LIMIT = 12;
-        private int time;
 
     }
+
 
     /**
      * Main play routine.  Loops until end of play.
@@ -132,9 +129,14 @@ public class Game {
         System.out.println("Welcome to the dark and twisted World of Zuul!");
         System.out.println("This land is a new, incredibly dark text based game, good luck, you will need it!");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        System.out.println("You have " + timer + "s to win.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
+
+
     }
+
+
 
     /**
      * Given a command, process (that is: execute) the command.
@@ -144,12 +146,25 @@ public class Game {
      */
     private boolean processCommand(Command command) {
         boolean wantToQuit = false;
+        boolean updateTimer = true;
+        {
+            if (updateTimer) {
+                timer.updateTimer();
+                if (timer.hasExpired())
+                    System.out.println("Your time has run out! - you have failed and let the darkness destroy you");
+                   wantToQuit = false;
+            } else if (timer.isLow()) {
+           System.out.println("Hurry, time is running low and the darkness approaches");
+                System.out.println("You have " + timer + "s left!");
+            }
+        }
 
         CommandWord commandWord = command.getCommandWord();
 
         switch (commandWord) {
             case UNKNOWN:
                 System.out.println("invalid command, tip add go before you type a direction e.g go west... or a capital letter for Inventory");
+                updateTimer = false;
                 break;
 
             case HELP:
@@ -157,7 +172,7 @@ public class Game {
                 break;
 
             case GO:
-               wantToQuit = goRoom(command);
+                wantToQuit = goRoom(command);
                 break;
             case Inventory:
                 printInventory();
@@ -165,19 +180,26 @@ public class Game {
             case get:
                 getItem(command);
                 break;
-            case use:
-                UseItem(command);
+            case drop:
+                dropItem(command);
+                break;
+            case moves:
+                System.out.println("You have " + timer + " moves left...");
                 break;
 
-            case QUIT:
+                case QUIT:
                 wantToQuit = quit(command);
+                updateTimer = false;
                 break;
         }
         return wantToQuit;
     }
 
-    private void UseItem(Command command) {
-    }
+
+    {
+
+        }
+
 
 
     private void dropItem(Command command) {
@@ -210,8 +232,6 @@ public class Game {
             currentRoom.setItem(new Item(item));
             System.out.println("dropped:" + item);
         }
-
-
     }
 
     private void printInventory() {
@@ -311,7 +331,7 @@ public class Game {
      * whether we really quit the game.
      * @return true, if this command quits the game, false otherwise.
      */
-    private boolean quit(Command command) 
+    private boolean quit(Command command)
     {
         if(command.hasSecondWord()) {
             System.out.println("Quit what?");

@@ -14,12 +14,8 @@ public class Item {
     public void Detail(String detail) {
         description = detail;
     }
-
-
-    public void UseItem(Command UseItem) {
-
-    }
 }
+
 
 
 
