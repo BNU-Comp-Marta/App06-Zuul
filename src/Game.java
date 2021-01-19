@@ -129,7 +129,7 @@ public class Game {
         System.out.println("Welcome to the dark and twisted World of Zuul!");
         System.out.println("This land is a new, incredibly dark text based game, good luck, you will need it!");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        System.out.println("You have " + timer + "s to win.");
+        System.out.println("You have " + timer + " moves to win.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
 
@@ -147,17 +147,7 @@ public class Game {
     private boolean processCommand(Command command) {
         boolean wantToQuit = false;
         boolean updateTimer = true;
-        {
-            if (updateTimer) {
-                timer.updateTimer();
-                if (timer.hasExpired())
-                    System.out.println("Your time has run out! - you have failed and let the darkness destroy you");
-                   wantToQuit = false;
-            } else if (timer.isLow()) {
-           System.out.println("Hurry, time is running low and the darkness approaches");
-                System.out.println("You have " + timer + "s left!");
-            }
-        }
+
 
         CommandWord commandWord = command.getCommandWord();
 
@@ -169,28 +159,48 @@ public class Game {
 
             case HELP:
                 printHelp();
+                updateTimer = false;
                 break;
 
             case GO:
                 wantToQuit = goRoom(command);
                 break;
+
             case Inventory:
                 printInventory();
+                updateTimer = false;
                 break;
+
             case get:
                 getItem(command);
+                updateTimer = false;
                 break;
+
             case drop:
                 dropItem(command);
+                updateTimer = false;
                 break;
+
             case moves:
                 System.out.println("You have " + timer + " moves left...");
+                updateTimer = false;
                 break;
 
                 case QUIT:
                 wantToQuit = quit(command);
                 updateTimer = false;
                 break;
+        }
+        {
+            if (updateTimer) {
+                timer.updateTimer();
+                if (timer.hasExpired())
+                    System.out.println("Your time has run out! - you have failed and let the darkness destroy you");
+                wantToQuit = false;
+            } else if (timer.isLow()) {
+                System.out.println("Hurry, time is running low and the darkness approaches");
+                System.out.println("You have " + timer + "moves left!");
+            }
         }
         return wantToQuit;
     }
