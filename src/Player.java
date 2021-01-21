@@ -5,7 +5,8 @@
 public class Player
 {
     private final String name;
-    private int score;
+    private static int setmaxweight = 45;
+    private int playerweight;
     private int count;
 
     /**
@@ -15,13 +16,13 @@ public class Player
     public Player(String name)
     {
         this.name = name;
-        score = 0;
+        this.playerweight = 0;
     }
 
 
-    /**
-     *
-     */
+        /**
+         *
+         */
     public void print()
     {
         System.out.println("Player : " + name);
@@ -48,6 +49,10 @@ public class Player
         public String getName() {
             return this.name;
         }
+
+    public static int Setmaxweight() {
+        return setmaxweight;
+    }
 }
 
 

@@ -83,6 +83,29 @@ public class Game {
 
         Crypt.setExit("west", Cave);
 
+        int weight1 = 5;
+        int weight2 = 1;
+        int weight3 = 4;
+        int weight4 = 10;
+        int weight5 = 2;
+        int weight6 = 30;
+
+        int maxweight = 40;
+        int playerweight =0;
+
+        if((playerweight)  <= maxweight)
+        {
+            System.out.println("You can take this item");
+
+        }
+        else if((playerweight) > maxweight)
+        {
+            System.out.println("You are overencumbered and move very slow");
+        }
+
+
+
+
         currentRoom = Cave;  // start game in cave
         //items to be interacted with
         Inventory.add(new Item("Torch"));
@@ -93,12 +116,13 @@ public class Game {
         Castle_f2.setItem(new Item("Armour"));
 
 
-        Village.useItem(new Item(":You must go to the castle, but beware of the darkness within"));
-        Valley_of_souls.useItem(new Item(" an odd crystal, with a faint sound echoing within"));
-        Castle_interior.useItem(new Item("an old rusty sword but an odd energy permeates through this weapon"));
-        Castle_f1.useItem(new Item("forgotten old key to unlock answers or more questions..."));
-        Castle_f2.useItem(new Item("old armour which once was worn by the true king"));
 
+
+        Village.useItem(new Item(":You must go to the castle, but beware of the darkness within" + "\n" + weight2+"g"));
+        Valley_of_souls.useItem(new Item(" an odd crystal, with a faint sound echoing within" + "\n" + weight3+"g"));
+        Castle_interior.useItem(new Item("an old rusty sword but an odd energy permeates through this weapon" + "\n" + weight4+"g"));
+        Castle_f1.useItem(new Item("forgotten old key to unlock answers or more questions..." + "\n" + weight5+"g"));
+        Castle_f2.useItem(new Item("old armour which once was worn by the true king" + "\n" + weight6+"g"));
     }
 
 
@@ -168,6 +192,7 @@ public class Game {
 
             case Inventory:
                 printInventory();
+                printMaxweight();
                 updateTimer = false;
                 break;
 
@@ -203,9 +228,9 @@ public class Game {
             return Wanttoquit;
         }
 
-
-
-
+    private void printMaxweight() {
+        System.out.println(40 +"g total");
+    }
 
 
     private void dropItem(Command command) {
@@ -274,6 +299,7 @@ public class Game {
             currentRoom.removeItem(item);
             System.out.println("Received:" + item);
         }
+
 
     }
 
