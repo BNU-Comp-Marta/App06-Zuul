@@ -29,9 +29,11 @@ public class Timer {
     public void setTime(int time) {
         timer = time;
     }
+
     public void setUpdate(int update) {
         this.update = update;
     }
+
     public void setLow(int low) {
         this.low = low;
     }
@@ -50,7 +52,7 @@ public class Timer {
      * check if the timer reached zero
      */
     public boolean hasExpired() {
-        if (timer <= 0) {
+        if (timer <= 1) {
             return true;
         }
         return false;

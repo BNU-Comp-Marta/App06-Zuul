@@ -91,19 +91,14 @@ public class Game {
         int weight6 = 30;
 
         int maxweight = 40;
-        int playerweight =0;
+        int playerweight = 0;
 
-        if((playerweight)  <= maxweight)
-        {
+        if ((playerweight) <= maxweight) {
             System.out.println("You can take this item");
 
-        }
-        else if((playerweight) > maxweight)
-        {
+        } else if ((playerweight) > maxweight) {
             System.out.println("You are overencumbered and move very slow");
         }
-
-
 
 
         currentRoom = Cave;  // start game in cave
@@ -116,13 +111,11 @@ public class Game {
         Castle_f2.setItem(new Item("Armour"));
 
 
-
-
-        Village.useItem(new Item(":You must go to the castle, but beware of the darkness within" + "\n" + weight2+"g"));
-        Valley_of_souls.useItem(new Item(" an odd crystal, with a faint sound echoing within" + "\n" + weight3+"g"));
-        Castle_interior.useItem(new Item("an old rusty sword but an odd energy permeates through this weapon" + "\n" + weight4+"g"));
-        Castle_f1.useItem(new Item("forgotten old key to unlock answers or more questions..." + "\n" + weight5+"g"));
-        Castle_f2.useItem(new Item("old armour which once was worn by the true king" + "\n" + weight6+"g"));
+        Village.useItem(new Item(":You must go to the castle, but beware of the darkness within" + "\n" + weight2 + "g"));
+        Valley_of_souls.useItem(new Item(" an odd crystal, with a faint sound echoing within" + "\n" + weight3 + "g"));
+        Castle_interior.useItem(new Item("an old rusty sword but an odd energy permeates through this weapon" + "\n" + weight4 + "g"));
+        Castle_f1.useItem(new Item("forgotten old key to unlock answers or more questions..." + "\n" + weight5 + "g"));
+        Castle_f2.useItem(new Item("old armour which once was worn by the true king" + "\n" + weight6 + "g"));
     }
 
 
@@ -159,7 +152,6 @@ public class Game {
 
 
     }
-
 
 
     /**
@@ -211,22 +203,22 @@ public class Game {
                 updateTimer = false;
                 break;
 
-                case QUIT:
-                    Wanttoquit  = quit(command);
+            case QUIT:
+                Wanttoquit = quit(command);
                 updateTimer = false;
                 break;
         }
-            if (updateTimer) {
-                timer.updateTimer();
-                if (timer.hasExpired())
-                    System.out.println("Your time has run out! - you have failed and let the darkness destroy you");
-                Wanttoquit = false;
-            } else if (timer.isLow()) {
-                System.out.println("Hurry, time is running low and the darkness approaches");
-                System.out.println("You have " + timer + " moves left!");
-            }
-            return Wanttoquit;
+        if (updateTimer) {
+            timer.updateTimer();
+            if (timer.hasExpired())
+                System.out.println("Your time has run out! - you have failed and let the darkness destroy you");
+            Wanttoquit = false;
+        } else if (timer.isLow()) {
+            System.out.println("Hurry, time is running low and the darkness approaches");
+            System.out.println("You have " + timer + " moves left!");
         }
+        return Wanttoquit;
+    }
 
     private void printMaxweight() {
         System.out.println(40 +"g total");
